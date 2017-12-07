@@ -1,0 +1,89 @@
+	<div class="row">
+			<div class="container-fluid">
+				<div class="col-md-12">
+					<div class="col-md-6 col-md-offset-3">
+						<form ng-submit="getResults(0)" name="searchForm">
+						<div class="search_div">
+							<div style="text-align: center; font-size: 14px; padding-right: 120px; color:#9B9B9B; margin-bottom: 15px;">İzlemek istediğiniz filmi ya da diziyi en iyi fiyata bulun</div>
+							<div style="position: relative;">
+								<div angucomplete-alt
+								  id="search" 
+								  placeholder="Örn. Superman"
+								  pause="10"
+								  selected-object="afterSelectedMovie"
+								  remote-url="{{base_url}}service/getSuggestions/"
+								  remote-url-request-formatter="remoteUrlRequestFn"
+								  remote-url-data-field="results"
+								  title-field="title"
+								  minlength="1"
+								  match-class="highlight" 
+								  field-required="true" 
+								  input-name="search"
+								  text-no-results="false" 
+								  image-field="poster" 
+								  focus-out="focusOut()" 
+								  text-searching="false">
+								</div>
+								<input type="submit" name="Submit" value="" ng-disabled="search==''">
+							</div>
+							<span ng-if="searchBottmTxt" class="searchBottmTxt">{{searchBottmTxt}}</span>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="bookContainer" ng-if="search_results.length>0" infinite-scroll-distance="2" infinite-scroll="getResults(1)" infinite-scroll-disabled='busy'>
+				<div class="container-fluid" ng-repeat="result in search_results" >
+					<div class="container">
+						<div class="col-md-12">
+							<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12">
+							<div class="itemTitle">
+								<span>{{result.movie_title+' ('+result.release_year+')'}}</span>
+								<div class="sdHd" ng-init="show = result.show">
+									<a ng-class="(show != 'hd_'+result.auto_id)?'selected':''" ng-click="show = 'sd_'+result.auto_id;">SD</a>
+									<a ng-class="(show == 'hd_'+result.auto_id)?'selected':''" ng-click="show = 'hd_'+result.auto_id;">HD</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						<div class="col-md-3 book_icon">
+							<img ng-src="{{result.movie_thumbnail_url}}">
+							<!-- <div class="labels_div">
+								<span>Satin al</span>
+								<span>Kirala</span>
+							</div> -->
+						</div>
+						<div class="col-md-9 stores_list">
+							<div class="row">
+							<div class="col-md-12 type_book">
+									Satin al
+								</div>
+								<div class="col-md-2" ng-repeat="vender in result.venders | toArray:false | orderBy : show == 'hd_'+result.auto_id?Buy_hd_price:Buy_sd_price" ng-if="(show != 'hd_'+result.auto_id && (vender.Buy_sd_price>0 || vender.is_subscribe == 1)) || (show == 'hd_'+result.auto_id && (vender.Buy_hd_price>0 || vender.is_subscribe == 1))">
+									<a href="{{vender.vender_url}}" target="_blank" ng-click="open_link(result.auto_id)"><img ng-src="{{vender.vender_thumbnail_url}}"></a>
+									<span ng-if="vender.is_subscribe != 1">{{(show == 'hd_'+result.auto_id?vender.Buy_hd_price:vender.Buy_sd_price)+" "+currencySymbol}}</span>
+									<span ng-if="vender.is_subscribe == 1" ng-click="open_link(result.auto_id)">Subscribe</span>
+								</div>
+								<div class="clear_both"></div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 type_book">
+									Kirala
+								</div>
+								<div class="col-md-2" ng-repeat="vender in result.venders | toArray:false | orderBy : show == 'hd_'+result.auto_id?'Buy_hd_price':'Buy_sd_price'" ng-if="(show != 'hd_'+result.auto_id && (vender.Rent_sd_price>0)) || (show == 'hd_'+result.auto_id && (vender.Rent_hd_price>0))">
+									<a ng-click="open_link(result.auto_id)" target="_blank" href="{{vender.vender_url}}"><img ng-src="{{vender.vender_thumbnail_url}}"></a>
+									<span>{{(show == 'hd_'+result.auto_id?vender.Rent_hd_price:vender.Rent_sd_price)+" "+currencySymbol}}</span>
+								</div>
+								<div class="clear_both"></div>
+							</div>
+						</div>
+					</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>

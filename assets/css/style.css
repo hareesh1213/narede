@@ -1,0 +1,135 @@
+html,body{
+			font-family: helvetica;
+			font-size: 14px;
+			padding: 0;
+			margin: 0;
+		}
+		.header{
+			height: 90px;
+			background: #fafafa;
+			width: 100%;
+		}
+		.logoTitle{
+			font-size: 28px;
+			color: #fdc262;
+			padding: 25px 30px;
+			float: left;
+		}
+		.logoTitle a{
+		color: #fdc262;
+		text-decoration: none;
+		}
+		.header_name{
+			float: right;
+			color: #989898;
+			font-size: 18px;
+			line-height: 90px;
+		}
+		.containerBody{
+			width: 970px;
+			margin: 0 auto;
+		}
+		.search_div{
+			position: relative;
+			padding: 0 50px;
+			margin-top: 70px;
+		}
+		.search_div input[type="text"]{
+			width: 100%;
+			border: 1px solid #f2f2f2;
+			padding: 15px 10px;
+			box-shadow: 10px 10px 10px #f2f2f2;	
+		}
+		.search_div input[type="submit"]{
+			background: url('../img/icons/search@2x.png') center center no-repeat;
+			position: absolute;
+			right: 1px;
+			top: 1px;
+			background-color: #fdc262;
+			border: 0 none;
+			padding: 15px 60px;
+			color: #FFF;
+		}
+		.searchBottmTxt{
+			color: #8e8e8e;
+			text-align: center;
+			margin: 40px 0 0;
+			display: block;
+			font-size: 16px;
+			padding-right: 120px;
+		}
+		.book_icon img{
+			width: 100%;
+			border: 1px solid #d5d5d5;
+		}
+		.itemTitle{
+			border-bottom: 1px solid #c6c6c6;
+			color: #3e3e3e;
+			font-size: 24px;
+			margin-bottom: 25px;	
+		}
+		.itemTitle > span{
+			float: left;
+		}
+		.sdHd{
+			float:right;
+		}
+		.sdHd a{
+			padding: 7px 5px;
+			display: inline-block;
+			font-size: 18px;
+			color: #9a9a9a;
+			text-decoration: none;
+		}
+		.sdHd a.selected{
+			color: #fdc262;
+		}
+		.stores_list > .row {
+			min-height: 150px;
+		}
+		.stores_list img{
+			width: 100%;
+			border: 1px solid #f1f1f1;
+		}
+		.stores_list span{
+			font-size: 22px;
+			color: #414141;
+			display:block;
+			margin: 7px 0;
+			text-align: center;
+		}
+		.type_book{
+			color: #414141;
+			font-size: 18px;
+			margin-bottom: 7px;
+			text-transform: uppercase;
+		}
+		.stores_list > div{
+			border-bottom: 1px solid #cdcdcd;
+			clear: both;
+			margin: 0 15px 7px;
+			padding-bottom: 7px;
+		}
+		.stores_list > div:nth-child(2){
+			border-bottom: 0 none;
+		}
+		.clear_both{
+			clear: both;
+		}
+		.bookContainer > div{
+			margin: 30px 0;
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+		.bookContainer > div:nth-child(2n+2){
+			background: #fafafa;
+		}
+		.angucomplete-dropdown {
+		    width: 100%;
+		}
+		.angucomplete-selected-row {
+		    background-color: #fdc262;
+		}
+		.search_div input:focus{
+			outline: none;
+		}
