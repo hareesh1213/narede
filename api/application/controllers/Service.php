@@ -13,7 +13,7 @@ class Service extends CI_Controller
 	public function getSuggestions()
 	{
 		$param = array("key" => addslashes(urldecode($_GET['key'])));
-		$query = $this->service_model->get_suggestions($param);
+		$query = $this->service_model->get_suggestions(str_replace('-', '', $param));
 		if($query->num_rows() > 0)
 		{
 			foreach($query->result() as $row)
@@ -31,7 +31,7 @@ class Service extends CI_Controller
 			die("401 Forbidden");
 		}
 		$param = array(
-							"search_key" => addslashes($this->input->post('search_key')),
+							"search_key" => str_replace('-', '', addslashes($this->input->post('search_key'))),
 							"offset"	 => $this->input->post('offset')
 						);
 		$total_records = $this->service_model->result_count($param);
@@ -41,8 +41,10 @@ class Service extends CI_Controller
 		if($total_records>0)
 		{
 			$movie_ids = array();
+			$index = 0;
 			foreach($query->result() as $row)
 			{
+				$index++;
 				$movie_auto_id 			= $row->movie_auto_id;
 				array_push($movie_ids, $movie_auto_id);
 				$movie_title 			= $row->movie_title;
@@ -72,7 +74,7 @@ class Service extends CI_Controller
 					$price_Rent_hd_price 	= $price_Rent_hd_prices[$a];
 					$is_subscribes			= explode(',|,', $row->is_subscribe);
 					$is_subscribe 			= $is_subscribes[$a];
-					$venders[$movie_auto_id][$vendor_id] = array(
+					$venders[$index][$vendor_id] = array(
 																		"vender_name" 			=> $vender_name,
 																		"vender_thumbnail_url"	=> $vender_thumbnail_url,
 																		"vender_id"				=> $vendor_id,
@@ -85,13 +87,13 @@ class Service extends CI_Controller
 																	);
 					$a++;
 				}
-				$result[$movie_auto_id] = array(
+				$result[$index] = array(
 												"auto_id"				=> $movie_auto_id,
 												"show"					=> ($price_Buy_sd_price>0 || $price_Rent_sd_price>0 || $is_subscribe==1)?'sd_'.$movie_auto_id:'hd_'.$movie_auto_id,
 												"movie_title"			=> $movie_title,
 												"movie_thumbnail_url"	=> $movie_thumbnail_url,
 												"release_year"			=> date('Y', strtotime($movie_release_year)),
-												"venders"				=> $venders[$movie_auto_id],
+												"venders"				=> $venders[$index],
 											);
 			}
 			$update_array = array(

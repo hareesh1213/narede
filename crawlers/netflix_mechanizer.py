@@ -22,7 +22,7 @@ browser.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US) Ap
 browser.set_handle_refresh(False)
 
 
-browser.open('https://www.netflix.com/tr/login')
+browser.open('https://www.netflix.com/tr-en/login')
 browser.select_form(nr = 0)       #This is login-password form -> nr = number = 0
 #username/email and pass below
 browser.form['email'] = 'guclutalu@smartup.network'
@@ -92,7 +92,8 @@ for j in info.links:
             cur.execute(sql)
             price_set = cur.fetchall()
             if(price_set):
-                cur.execute ("UPDATE tbl_prices SET video_url=%s, unique_id=%s, Rent_sd_price=%s, Rent_hd_price=%s, Buy_sd_price=%s, Buy_hd_price=%s, updated_date=%s  WHERE movie_id=%s AND vendor_id=%s", (Video_urls,'0',0,0,0,0,'1',created_date,movie_id,Vendor_id))
+                #cur.execute ("UPDATE tbl_prices SET video_url=%s, unique_id=%s, Rent_sd_price=%s, Rent_hd_price=%s, Buy_sd_price=%s, Buy_hd_price=%s, updated_date=%s  WHERE movie_id=%s AND vendor_id=%s", (Video_urls,'0',0,0,0,0,'1',created_date,movie_id,Vendor_id))
+                cur.execute ("UPDATE tbl_prices SET video_url='%s', unique_id='%s', Rent_sd_price='%s', Rent_hd_price='%s', Buy_sd_price='%s', Buy_hd_price='%s', updated_date='%s'  WHERE movie_id='%s' AND vendor_id='%s'", (Video_urls,'0','0','0','0','0','1',created_date,movie_id,Vendor_id))
                 #print cur._last_executed
             else:
                 insert_sql = "INSERT INTO tbl_prices (movie_id,video_url,unique_id,vendor_id,Rent_sd_price,Rent_hd_price,Buy_sd_price,Buy_hd_price,is_subscribe,created_date,updated_date) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"

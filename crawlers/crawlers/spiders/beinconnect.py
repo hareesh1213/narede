@@ -18,7 +18,8 @@ class BeinconnectSpider(CrawlSpider):
     rules = (
               Rule(LinkExtractor(allow=('/film/?')),callback="parse_item",follow=True),
 		      Rule(LinkExtractor(allow=('/ulusal/?')),callback="parse_item",follow=True),
-		      Rule(LinkExtractor(allow=('/dizi/?')),callback="parse_item",follow=True)
+		      Rule(LinkExtractor(allow=('/dizi/?')),callback="parse_item",follow=True),
+              Rule(LinkExtractor(allow=('/yabanci-dizi/?')),callback="parse_item",follow=True) 
             )
 
     ##Function parse item which will get response from crawler class and process it for data extraction.  
